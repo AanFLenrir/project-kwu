@@ -1,0 +1,90 @@
+:root {
+  /* KAIROS Color Palette */
+  --midnight-navy: #171747;
+  --deep-navy: #211b70;
+  --royal-indigo: #302a91;
+  --soft-indigo: #eae9fa;
+  --champagne-gold: #d9b65d;
+  --warm-gold: #e8c76a;
+  --white: #ffffff;
+  --light-bg: #f7f7fc;
+
+  /* Semantic tokens */
+  --background: var(--light-bg);
+  --foreground: var(--midnight-navy);
+  --primary: var(--royal-indigo);
+  --primary-foreground: var(--white);
+  --secondary: var(--soft-indigo);
+  --secondary-foreground: var(--royal-indigo);
+  --accent: var(--champagne-gold);
+  --accent-foreground: var(--midnight-navy);
+  --muted: #f0f0f8;
+  --muted-foreground: #6b7280;
+  --border: #e2e1f0;
+  --ring: var(--royal-indigo);
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+
+  /* Surface colors */
+  --surface: var(--white);
+  --sidebar-bg: var(--midnight-navy);
+  --sidebar-foreground: rgba(255, 255, 255, 0.85);
+  --sidebar-active: var(--royal-indigo);
+
+  /* Typography */
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Spline Sans Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Radius */
+  --radius: 0.75rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(23, 23, 71, 0.05);
+  --shadow: 0 2px 8px 0 rgba(23, 23, 71, 0.08);
+  --shadow-md: 0 4px 16px 0 rgba(23, 23, 71, 0.1);
+  --shadow-lg: 0 8px 32px 0 rgba(23, 23, 71, 0.12);
+
+  /* Transitions */
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-surface: var(--surface);
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-midnight-navy: var(--midnight-navy);
+  --color-deep-navy: var(--deep-navy);
+  --color-royal-indigo: var(--royal-indigo);
+  --color-soft-indigo: var(--soft-indigo);
+  --color-champagne-gold: var(--champagne-gold);
+  --color-warm-gold: var(--warm-gold);
+  --color-light-bg: var(--light-bg);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+
+  --radius-sm: 0.5rem;
+  --radius-md: var(--radius);
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  --ease-smooth: var(--ease-smooth);
+}
