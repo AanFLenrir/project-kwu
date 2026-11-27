@@ -1,18 +1,24 @@
 'use client';
 
 import Link from 'next/link';
-import { User, Settings, Bell, Shield, HelpCircle, Info, LogOut, ChevronRight, Edit3, Award, BookOpen, ListChecks } from 'lucide-react';
+import { User, Settings, Bell, Shield, HelpCircle, Info, LogOut, ChevronRight, Edit3, Award, BookOpen, ListChecks, CreditCard, Sparkles } from 'lucide-react';
 import { AppShell } from '@/components/layouts/AppShell';
 import { PageHeader } from '@/components/common/PageHeader';
 import { useApp } from '@/lib/context/AppContext';
 
 export default function ProfilePage() {
   const { state } = useApp();
-  const { user, tasks, courses, certificates } = state;
+  const { user, tasks, courses, certificates, subscription } = state;
 
   const completedTasksCount = tasks.filter(t => t.status === 'completed').length;
 
   const menuSections = [
+    {
+      title: 'Langganan & Model Bisnis',
+      items: [
+        { href: '/pricing', label: 'Paket Langganan & Keuangan', icon: CreditCard, desc: 'Pilihan durasi 1, 3, 6, 12 bulan & simulator BEP' },
+      ]
+    },
     {
       title: 'Pengaturan Akun',
       items: [
@@ -78,6 +84,31 @@ export default function ProfilePage() {
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Active Subscription Row */}
+            <div className="mt-5 p-4 rounded-2xl bg-soft-indigo/30 border border-soft-indigo flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-royal-indigo text-white flex items-center justify-center shrink-0">
+                  <CreditCard size={18} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold text-midnight-navy">{subscription.planName}</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">Aktif</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground">
+                    Siklus tagihan: {subscription.billingCycle} · Hingga {new Date(subscription.expiryDate).toLocaleDateString('id-ID')}
+                  </p>
+                </div>
+              </div>
+
+              <Link
+                href="/pricing"
+                className="px-3.5 py-1.5 rounded-xl bg-royal-indigo text-white text-xs font-semibold hover:bg-deep-navy transition-colors text-center shrink-0"
+              >
+                Kelola Paket
+              </Link>
             </div>
 
             {/* Achievement Mini Dashboard */}

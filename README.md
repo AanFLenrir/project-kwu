@@ -55,6 +55,28 @@ Membantu mahasiswa memantau perkembangan pembelajaran dan menyusun portofolio pr
 - Penyusunan portofolio.
 - Pratinjau portofolio profesional.
 
+### 4. Fitur Model Bisnis, Paket Langganan & Simulator Keuangan (BEP)
+
+Implementasi langsung dari riset validasi bisnis dan analisis titik impas (**Halaman 12 Laporan UTS Kewirausahaan Bidang TI - Gambar 6 & Tabel 17**):
+
+- **Paket Langganan Mahasiswa (B2C) Berbagai Durasi Bulan**:
+  * **Paket Gratis (Freemium)**: Rp0 (pintu adopsi awal mahasiswa).
+  * **Paket Pro 1 Bulan**: Rp20.000 / bulan.
+  * **Paket Pro 3 Bulan**: Rp54.000 / 3 bulan (Rp18.000/bln, Hemat 10% - persiapan UTS/UAS).
+  * **Paket Semester Aktif (6 Bulan)**: Rp99.000 / semester (Rp16.500/bln, Hemat 18% - Rekomendasi Mahasiswa).
+  * **Paket Pro Tahunan (12 Bulan)**: Rp180.000 / tahun (Rp15.000/bln, Hemat 25%).
+- **Lisensi Kampus Institusi & Kemitraan (B2B2C - Model Bisnis Terpilih)**:
+  * **Lisensi Program Studi (D4/S1 TI)**: Rp5.000.000 / tahun (kuota hingga 500 mahasiswa, setara Rp10.000/akun/tahun).
+  * **Lisensi Fakultas Vokasi/Teknik**: Rp12.000.000 / tahun (hingga 1.500 akun mahasiswa).
+  * **Kemitraan Perusahaan & HRD (Talent Pool Access)**: Rp15.000.000 / tahun.
+- **Simulator Interaktif Titik Impas (Break-Even Point)**:
+  * Slider dinamis jumlah kampus (1 s.d. 30 kampus) dan mahasiswa langganan (50 s.d. 600 akun).
+  * Perhitungan instan: Pendapatan Total vs Biaya Tetap (Rp60 Juta) vs Biaya Variabel, Margin Kontribusi, dan Laba Bersih terhadap titik impas (BEP 15 Kampus = Rp75 Juta).
+  * Perbandingan komparatif alasan B2B2C dipilih dibanding B2C.
+- **Checkout Interaktif & Riwayat Tagihan**:
+  * Simulasi pembayaran via QRIS, Virtual Account BCA/Mandiri/BRI, dan kartu debit/kredit online.
+  * Penyimpanan riwayat faktur (*invoice history*) di LocalStorage.
+
 ---
 
 ## Teknologi yang Digunakan
@@ -114,6 +136,7 @@ Membantu mahasiswa memantau perkembangan pembelajaran dan menyusun portofolio pr
 | 36 | Add Certificate | `/certificates/new` |
 | 37 | Task Completion Confirmation | `/tasks/[id]` |
 | 38 | Logout Confirmation | `/logout` |
+| +  | Paket Langganan & Model Bisnis Keuangan (BEP) | `/pricing` |
 
 **Catatan:** Layar konfirmasi penyelesaian tugas menggunakan dialog pada halaman detail tugas. Implementasinya mengikuti struktur route yang tersedia.
 

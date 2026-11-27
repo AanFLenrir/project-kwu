@@ -147,6 +147,49 @@ export interface Notification {
   link?: string;
 }
 
+// Bisnis & Keuangan Types
+export type PlanDuration = '1-month' | '3-months' | '6-months' | '12-months' | 'campus-annual';
+export type PlanTier = 'free' | 'pro' | 'campus-b2b2c';
+
+export interface SubscriptionPlan {
+  id: string;
+  name: string;
+  durationLabel: string;
+  months: number;
+  price: number;
+  originalPrice?: number;
+  discountPercent?: number;
+  monthlyEquivalent: number;
+  tier: PlanTier;
+  badge?: string;
+  popular?: boolean;
+  target: 'mahasiswa' | 'kampus';
+  features: string[];
+}
+
+export interface UserSubscription {
+  planId: string;
+  planName: string;
+  tier: PlanTier;
+  status: 'active' | 'trial' | 'expired';
+  startDate: string;
+  expiryDate: string;
+  billingCycle: string;
+  pricePaid: number;
+  paymentMethod: string;
+  autoRenew: boolean;
+}
+
+export interface TransactionInvoice {
+  id: string;
+  date: string;
+  planName: string;
+  amount: number;
+  status: 'paid' | 'pending';
+  paymentMethod: string;
+  invoiceNumber: string;
+}
+
 export interface AppState {
   user: User;
   tasks: Task[];
@@ -157,4 +200,6 @@ export interface AppState {
   certificates: Certificate[];
   portfolio: Portfolio;
   notifications: Notification[];
+  subscription: UserSubscription;
+  invoices: TransactionInvoice[];
 }

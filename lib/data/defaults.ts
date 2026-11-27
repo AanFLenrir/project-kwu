@@ -1,4 +1,4 @@
-import type { AppState } from '@/types';
+import type { AppState, SubscriptionPlan } from '@/types';
 
 export const defaultUser = {
   id: 'user-1',
@@ -503,6 +503,156 @@ export const defaultNotifications = [
   },
 ];
 
+// Data Default Paket Langganan & Keuangan Bisnis (Sesuai Laporan UTS Hal 12)
+export const subscriptionPlans: SubscriptionPlan[] = [
+  {
+    id: 'plan-free',
+    name: 'Paket Mahasiswa Gratis',
+    durationLabel: 'Gratis Selamanya',
+    months: 0,
+    price: 0,
+    monthlyEquivalent: 0,
+    tier: 'free',
+    target: 'mahasiswa',
+    badge: 'Pintu Adopsi',
+    features: [
+      'Maksimal 5 tugas aktif berjalan',
+      'Akses Centralized Information Hub dasar',
+      'Pelacakan hingga 2 kursus daring',
+      '1 Portofolio proyek digital',
+      'Notifikasi pengingat via email',
+    ],
+  },
+  {
+    id: 'plan-1m',
+    name: 'Paket Pro 1 Bulan',
+    durationLabel: '1 Bulan Fleksibel',
+    months: 1,
+    price: 20000,
+    monthlyEquivalent: 20000,
+    tier: 'pro',
+    target: 'mahasiswa',
+    badge: 'B2C Bulanan',
+    features: [
+      'Tugas tanpa batas & Smart Priority AI scoring',
+      'Filter lengkap beasiswa, lomba, & magang',
+      'Pelacak kursus & sertifikat tak terbatas',
+      'Ekspor Portofolio PDF resmi terverifikasi',
+      'Pengingat deadline otomatis H-3 & H-1',
+    ],
+  },
+  {
+    id: 'plan-3m',
+    name: 'Paket Pro 3 Bulan',
+    durationLabel: '3 Bulan (Persiapan UTS/UAS)',
+    months: 3,
+    price: 54000,
+    originalPrice: 60000,
+    discountPercent: 10,
+    monthlyEquivalent: 18000,
+    tier: 'pro',
+    target: 'mahasiswa',
+    badge: 'Hemat 10%',
+    features: [
+      'Semua fitur Paket Pro',
+      'Cocok untuk 1 paruh semester intensif',
+      'Prioritas review portofolio oleh mentor karier',
+      'Sinkronisasi kalender Google & Notion',
+    ],
+  },
+  {
+    id: 'plan-6m',
+    name: 'Paket Semester Aktif (6 Bulan)',
+    durationLabel: '6 Bulan (1 Semester Penuh)',
+    months: 6,
+    price: 99000,
+    originalPrice: 120000,
+    discountPercent: 18,
+    monthlyEquivalent: 16500,
+    tier: 'pro',
+    popular: true,
+    target: 'mahasiswa',
+    badge: 'Paling Populer',
+    features: [
+      'Semua fitur Pro selama 1 semester perkuliahan',
+      'Rekomendasi loker magang eksklusif mitra KAIROS',
+      'Template portofolio standar industri tech',
+      'Akses webinar persiapan karier & CV review',
+    ],
+  },
+  {
+    id: 'plan-12m',
+    name: 'Paket Pro Tahunan (12 Bulan)',
+    durationLabel: '12 Bulan (1 Tahun Akademik)',
+    months: 12,
+    price: 180000,
+    originalPrice: 240000,
+    discountPercent: 25,
+    monthlyEquivalent: 15000,
+    tier: 'pro',
+    target: 'mahasiswa',
+    badge: 'Hemat 25%',
+    features: [
+      'Semua fitur Pro selama 1 tahun penuh',
+      'Biaya paling hemat: setara Rp15.000 / bulan',
+      'Lencana terverifikasi "KAIROS Top Talent"',
+      'Akses awal ke fitur AI Auto-Schedule',
+    ],
+  },
+  {
+    id: 'plan-campus',
+    name: 'Lisensi Kampus Institusi (B2B2C)',
+    durationLabel: '1 Tahun / Kampus',
+    months: 12,
+    price: 5000000,
+    monthlyEquivalent: 416666,
+    tier: 'campus-b2b2c',
+    target: 'kampus',
+    badge: 'Model Utama Terpilih',
+    features: [
+      'Lisensi hingga 500 akun mahasiswa aktif',
+      'Setara Rp10.000 / mahasiswa / tahun',
+      'Dasbor analitik keterserapan magang & karier kampus',
+      'Kanal siaran pengumuman resmi fakultas/prodi terpusat',
+      'Dukungan integrasi API SIAKAD / LMS kampus',
+    ],
+  },
+];
+
+export const defaultSubscription = {
+  planId: 'plan-6m',
+  planName: 'Paket Semester Aktif (6 Bulan)',
+  tier: 'pro' as const,
+  status: 'active' as const,
+  startDate: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString(),
+  expiryDate: new Date(Date.now() + 135 * 24 * 60 * 60 * 1000).toISOString(),
+  billingCycle: 'Per 6 Bulan',
+  pricePaid: 99000,
+  paymentMethod: 'QRIS (GoPay / BCA)',
+  autoRenew: true,
+};
+
+export const defaultInvoices = [
+  {
+    id: 'inv-1',
+    date: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString(),
+    planName: 'Paket Semester Aktif (6 Bulan)',
+    amount: 99000,
+    status: 'paid' as const,
+    paymentMethod: 'QRIS - GoPay',
+    invoiceNumber: 'INV/2026/09/KRS-8821',
+  },
+  {
+    id: 'inv-2',
+    date: new Date(Date.now() - 225 * 24 * 60 * 60 * 1000).toISOString(),
+    planName: 'Paket Pro 3 Bulan',
+    amount: 54000,
+    status: 'paid' as const,
+    paymentMethod: 'BCA Virtual Account',
+    invoiceNumber: 'INV/2026/03/KRS-4310',
+  },
+];
+
 export const initialAppState: AppState = {
   user: defaultUser,
   tasks: defaultTasks,
@@ -513,4 +663,6 @@ export const initialAppState: AppState = {
   certificates: defaultCertificates,
   portfolio: defaultPortfolio,
   notifications: defaultNotifications,
+  subscription: defaultSubscription,
+  invoices: defaultInvoices,
 };

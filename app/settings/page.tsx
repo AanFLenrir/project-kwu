@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { KeyRound, Smartphone, Globe, Moon, Bell, Shield, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { KeyRound, Smartphone, Globe, Moon, Bell, Shield, ChevronRight, CheckCircle2, CreditCard } from 'lucide-react';
 import { AppShell } from '@/components/layouts/AppShell';
 import { PageHeader } from '@/components/common/PageHeader';
+import { useApp } from '@/lib/context/AppContext';
 
 export default function AccountSettingsPage() {
+  const { state } = useApp();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -28,9 +30,25 @@ export default function AccountSettingsPage() {
       <div className="min-h-screen bg-light-bg">
         <PageHeader title="Pengaturan Akun" showBack backHref="/profile" />
 
-        <div className="px-4 py-6 lg:px-8 max-w-3xl space-y-6">
+        <div className="px-4 py-6 lg:px-8 max-w-4xl space-y-6">
           {/* Quick links */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <Link
+              href="/pricing"
+              className="p-4 rounded-2xl bg-white border border-border shadow-xs hover:border-royal-indigo/50 transition-colors flex items-center justify-between"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-soft-indigo text-royal-indigo flex items-center justify-center">
+                  <CreditCard size={18} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-xs text-foreground">Paket & Keuangan</h3>
+                  <p className="text-[11px] text-muted-foreground">{state.subscription.planName.split('(')[0]}</p>
+                </div>
+              </div>
+              <ChevronRight size={16} className="text-muted-foreground" />
+            </Link>
+
             <Link
               href="/settings/notifications"
               className="p-4 rounded-2xl bg-white border border-border shadow-xs hover:border-royal-indigo/50 transition-colors flex items-center justify-between"

@@ -1,8 +1,8 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-import type { AppState, Task, Certificate, Course, Notification, Portfolio, User } from '@/types';
-import { initialAppState } from '@/lib/data/defaults';
+import type { AppState, Task, Certificate, Course, Notification, Portfolio, User, UserSubscription, TransactionInvoice } from '@/types';
+import { initialAppState, subscriptionPlans } from '@/lib/data/defaults';
 
 const STORAGE_KEY = 'kairos-app-data';
 
@@ -20,6 +20,8 @@ interface AppContextType {
   markNotificationRead: (id: string) => void;
   markAllNotificationsRead: () => void;
   toggleBookmark: (infoId: string) => void;
+  subscribePlan: (planId: string, paymentMethod: string) => void;
+  cancelSubscription: () => void;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -30,7 +32,12 @@ function loadState(): AppState {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       const parsed = JSON.parse(stored);
-      return { ...initialAppState, ...parsed };
+      return {
+        ...initialAppState,
+        ...parsed,
+        subscription: parsed.subscription || initialAppState.subscription,
+        invoices: parsed.invoices || initialAppState.invoices,
+      };
     }
   } catch {}
   return initialAppState;
@@ -126,6 +133,63 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }));
   };
 
+  const subscribePlan = (planId: string, paymentMethod: string) => {
+    const selectedPlan = subscriptionPlans.find(p => p.id === planId) || subscriptionPlans[3];
+    const durationDays = selectedPlan.months === 0 ? 365 : selectedPlan.months * 30;
+    const now = new Date();
+    const expiry = new Date(now.getTime() + durationDays * 24 * 60 * 60 * 1000);
+
+    const newSub: UserSubscription = {
+      planId: selectedPlan.id,
+      planName: selectedPlan.name,
+      tier: selectedPlan.tier,
+      status: 'active',
+      startDate: now.toISOString(),
+      expiryDate: expiry.toISOString(),
+      billingCycle: selectedPlan.durationLabel,
+      pricePaid: selectedPlan.price,
+      paymentMethod,
+      autoRenew: true,
+    };
+
+    const newInvoice: TransactionInvoice = {
+      id: `inv-${Date.now()}`,
+      date: now.toISOString(),
+      planName: selectedPlan.name,
+      amount: selectedPlan.price,
+      status: 'paid',
+      paymentMethod,
+      invoiceNumber: `INV/${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}/KRS-${Math.floor(1000 + Math.random() * 9000)}`,
+    };
+
+    const notif: Notification = {
+      id: `notif-${Date.now()}`,
+      title: 'Langganan Berhasil Diaktifkan! 🎉',
+      message: `Terima kasih! Anda sekarang aktif menggunakan ${selectedPlan.name}. Masa aktif hingga ${expiry.toLocaleDateString('id-ID')}.`,
+      type: 'achievement',
+      isRead: false,
+      createdAt: now.toISOString(),
+      link: '/pricing',
+    };
+
+    setState(s => ({
+      ...s,
+      subscription: newSub,
+      invoices: [newInvoice, ...s.invoices],
+      notifications: [notif, ...s.notifications],
+    }));
+  };
+
+  const cancelSubscription = () => {
+    setState(s => ({
+      ...s,
+      subscription: {
+        ...s.subscription,
+        autoRenew: false,
+      },
+    }));
+  };
+
   return (
     <AppContext.Provider value={{
       state,
@@ -141,6 +205,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       markNotificationRead,
       markAllNotificationsRead,
       toggleBookmark,
+      subscribePlan,
+      cancelSubscription,
     }}>
       {children}
     </AppContext.Provider>

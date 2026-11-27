@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, ListChecks, Newspaper, TrendingUp, User, Sparkles, Bell, Settings, HelpCircle, LogOut } from 'lucide-react';
+import { Home, ListChecks, Newspaper, TrendingUp, User, Sparkles, Bell, Settings, HelpCircle, LogOut, CreditCard } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useApp } from '@/lib/context/AppContext';
 
@@ -11,6 +11,7 @@ const mainNav = [
   { href: '/priority', label: 'Prioritas', icon: ListChecks },
   { href: '/information', label: 'Informasi', icon: Newspaper },
   { href: '/progress', label: 'Progres', icon: TrendingUp },
+  { href: '/pricing', label: 'Paket & Keuangan', icon: CreditCard },
   { href: '/profile', label: 'Profil', icon: User },
 ];
 
@@ -89,8 +90,8 @@ export function Sidebar() {
         </div>
       </nav>
 
-      {/* User Profile */}
-      <div className="border-t border-white/10 p-4">
+      {/* User Profile & Subscription Status */}
+      <div className="border-t border-white/10 p-4 space-y-2">
         <Link href="/profile" className="flex items-center gap-3 rounded-xl p-2 hover:bg-white/10 transition-all duration-200">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-champagne-gold to-warm-gold text-midnight-navy font-bold text-sm">
             {state.user.name.charAt(0).toUpperCase()}
@@ -100,11 +101,26 @@ export function Sidebar() {
             <p className="text-xs text-white/50 truncate">Semester {state.user.semester} · {state.user.program.split(' ')[1]}</p>
           </div>
         </Link>
+
+        {/* Subscription Plan Badge */}
+        <Link
+          href="/pricing"
+          className="flex items-center justify-between rounded-xl px-3 py-2 text-xs font-medium bg-white/10 text-champagne-gold hover:bg-white/15 transition-all"
+        >
+          <div className="flex items-center gap-2 truncate">
+            <CreditCard size={14} className="shrink-0" />
+            <span className="truncate">{state.subscription.planName}</span>
+          </div>
+          <span className="text-[10px] uppercase font-bold text-white/60 bg-white/10 px-1.5 py-0.5 rounded shrink-0">
+            Kelola
+          </span>
+        </Link>
+
         <Link
           href="/logout"
-          className="mt-2 flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-white/50 hover:bg-white/10 hover:text-white transition-all duration-200"
+          className="flex items-center gap-3 rounded-xl px-3 py-1.5 text-xs text-white/50 hover:bg-white/10 hover:text-white transition-all duration-200"
         >
-          <LogOut size={16} />
+          <LogOut size={14} />
           Keluar
         </Link>
       </div>

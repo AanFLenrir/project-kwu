@@ -3,12 +3,12 @@
 import Link from 'next/link';
 import { useApp } from '@/lib/context/AppContext';
 import { AppShell } from '@/components/layouts/AppShell';
-import { Bell, Calendar, ChevronRight, ListChecks, Newspaper, TrendingUp, Clock, AlertCircle, CheckCircle2, Sparkles, BookOpen, Briefcase } from 'lucide-react';
+import { Bell, Calendar, ChevronRight, ListChecks, Newspaper, TrendingUp, Clock, AlertCircle, CheckCircle2, Sparkles, BookOpen, Briefcase, CreditCard, ShieldCheck } from 'lucide-react';
 import { formatRelativeTime, getDaysUntilDeadline, getPriorityLabel } from '@/lib/utils';
 
 export function DashboardClient() {
   const { state } = useApp();
-  const { user, tasks, notifications, information, courses, certificates } = state;
+  const { user, tasks, notifications, information, courses, certificates, subscription } = state;
 
   const unreadNotifs = notifications.filter(n => !n.isRead).length;
   const pendingTasks = tasks.filter(t => t.status !== 'completed');
@@ -68,21 +68,48 @@ export function DashboardClient() {
         </div>
 
         <div className="px-4 py-6 lg:px-8 space-y-6 lg:grid lg:grid-cols-2 lg:gap-6 lg:space-y-0">
+          {/* Subscription Banner */}
+          <div className="lg:col-span-2">
+            <Link href="/pricing"
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl border border-champagne-gold/40 bg-gradient-to-r from-soft-indigo/50 via-white to-amber-50/50 shadow-xs hover:shadow-md transition-all group">
+              <div className="flex items-center gap-3.5">
+                <div className="w-10 h-10 rounded-xl bg-midnight-navy text-champagne-gold flex items-center justify-center shrink-0 shadow-xs">
+                  <CreditCard size={18} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-champagne-gold/20 text-midnight-navy">
+                      Langganan Aktif
+                    </span>
+                    <span className="text-xs font-bold text-midnight-navy">{subscription.planName}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    Masa berlaku hingga {new Date(subscription.expiryDate).toLocaleDateString('id-ID')}. Lihat paket 1, 3, 6, 12 bulan & kalkulator BEP bisnis.
+                  </p>
+                </div>
+              </div>
+              <span className="text-xs font-bold text-royal-indigo group-hover:translate-x-1 transition-transform flex items-center gap-1 shrink-0">
+                Kelola Paket & Keuangan <ChevronRight size={14} />
+              </span>
+            </Link>
+          </div>
+
           {/* Quick Actions */}
           <div className="lg:col-span-2">
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
               {[
                 { href: '/priority', icon: ListChecks, label: 'Prioritas', color: '#302A91', bg: '#EAE9FA' },
                 { href: '/calendar', icon: Calendar, label: 'Kalender', color: '#171747', bg: '#e8e8f0' },
                 { href: '/information', icon: Newspaper, label: 'Informasi', color: '#302A91', bg: '#EAE9FA' },
                 { href: '/progress', icon: TrendingUp, label: 'Progres', color: '#D9B65D', bg: '#FBF5E6' },
+                { href: '/pricing', icon: CreditCard, label: 'Paket & Keuangan', color: '#2563eb', bg: '#eff6ff' },
               ].map(({ href, icon: Icon, label, color, bg }) => (
                 <Link key={href} href={href}
                   className="flex flex-col items-center gap-2 rounded-2xl bg-white p-3 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: bg }}>
                     <Icon size={18} style={{ color }} />
                   </div>
-                  <span className="text-xs font-medium text-foreground text-center">{label}</span>
+                  <span className="text-xs font-medium text-foreground text-center truncate w-full">{label}</span>
                 </Link>
               ))}
             </div>
