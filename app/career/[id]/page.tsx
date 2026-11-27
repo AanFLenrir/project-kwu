@@ -6,7 +6,7 @@ import { MapPin, Clock, Wifi, CheckCircle, Briefcase, DollarSign, ChevronRight }
 import { AppShell } from '@/components/layouts/AppShell';
 import { PageHeader } from '@/components/common/PageHeader';
 import { useApp } from '@/lib/context/AppContext';
-import { formatDate, getDaysUntilDeadline, cn } from '@/lib/utils';
+import { getDaysUntilDeadline, cn } from '@/lib/utils';
 
 export default function CareerDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);

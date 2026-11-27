@@ -2,11 +2,11 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AppShell } from '@/components/layouts/AppShell';
 import { PageHeader } from '@/components/common/PageHeader';
 import { useApp } from '@/lib/context/AppContext';
-import { formatDate, cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
 const DAYS = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
 const MONTHS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
@@ -84,11 +84,9 @@ export default function CalendarPage() {
 
             {/* Days Grid */}
             <div className="grid grid-cols-7 px-2 pb-4">
-              {/* Empty cells for first day */}
               {Array.from({ length: firstDayOfMonth }, (_, i) => (
                 <div key={`empty-${i}`} />
               ))}
-              {/* Day cells */}
               {Array.from({ length: daysInMonth }, (_, i) => {
                 const day = i + 1;
                 const dayEvents = getEventsForDay(day);

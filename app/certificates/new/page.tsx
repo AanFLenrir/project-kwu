@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Check, Award } from 'lucide-react';
+import { Award } from 'lucide-react';
 import { AppShell } from '@/components/layouts/AppShell';
 import { PageHeader } from '@/components/common/PageHeader';
 import { useApp } from '@/lib/context/AppContext';

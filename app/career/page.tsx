@@ -7,7 +7,7 @@ import { AppShell } from '@/components/layouts/AppShell';
 import { PageHeader } from '@/components/common/PageHeader';
 import { EmptyState } from '@/components/common/States';
 import { useApp } from '@/lib/context/AppContext';
-import { formatDate, getDaysUntilDeadline, cn } from '@/lib/utils';
+import { getDaysUntilDeadline, cn } from '@/lib/utils';
 
 type JobType = 'all' | 'internship' | 'full-time' | 'part-time';
 

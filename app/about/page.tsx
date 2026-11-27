@@ -1,7 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-import { Sparkles, Users, Award, ShieldCheck, Heart, ArrowLeft } from 'lucide-react';
+import { Sparkles, Users } from 'lucide-react';
 import { AppShell } from '@/components/layouts/AppShell';
 import { PageHeader } from '@/components/common/PageHeader';
 

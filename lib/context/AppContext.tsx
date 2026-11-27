@@ -51,11 +51,10 @@ function saveState(state: AppState) {
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<AppState>(initialAppState);
+  const [state, setState] = useState<AppState>(() => loadState());
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    setState(loadState());
     setLoaded(true);
   }, []);
 
